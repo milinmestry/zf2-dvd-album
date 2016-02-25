@@ -1,0 +1,71 @@
+<?php
+// module/AlbumDVD/view/album-dvd/album-dvd/index.phtml:
+
+// print_r($albums);
+
+$title = 'My DVD albums';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('album-dvd', array('action'=>'add'));?>">Add new album</a>
+</p>
+
+<?php
+ // add at the end of the file after the table
+echo $this->paginationControl(
+     // the paginator object
+     $this->albums,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'album-dvd'
+     )
+)
+?>
+<table class="table table-condensed table-hover">
+<tr>
+    <th>Sr.</th>
+    <th>Artist</th>
+    <th>Title</th>
+    <th>Added by</th>
+    <th>Added on</th>
+    <th>Actions</th>
+</tr>
+<?php foreach ($albums as $i => $album) :
+    $sr_number = (($current_page_number - 1) * $item_count_per_page) + $i
+ //print_r($album)?>
+<tr>
+    <td><?php echo ++$sr_number ?></td>
+    <td><?php echo $this->escapeHtml($album->artist);?></td>
+    <td><?php echo $this->escapeHtml($album->title);?></td>
+    <td><?php echo $this->escapeHtml($album->added_by);?></td>
+    <td><?php echo $this->escapeHtml($album->add_ts);?></td>
+    <td>
+        <a href="<?php echo $this->url('album-dvd',
+            array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
+            |
+        <a href="<?php echo $this->url('album-dvd',
+            array('action'=>'delete', 'id' => $album->id));?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; unset($albums, $i) ?>
+</table>
+<?php
+ // add at the end of the file after the table
+echo $this->paginationControl(
+     // the paginator object
+     $this->albums,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'album-dvd'
+     )
+)
+?>

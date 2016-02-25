@@ -1,0 +1,17 @@
+<?php
+// module/AlbumDVD/view/album-dvd/album-dvd/add.phtml:
+
+$title = 'Add new DVD album';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+include 'list-link.phtml';
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('album-dvd', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
